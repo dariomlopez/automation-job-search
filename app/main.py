@@ -35,7 +35,7 @@ def run_all_scrapers():
         st.session_state.scraping_done = True
     except Exception as e:
         info_container.empty()
-        st.error(f"❌ Error while scraping: {e}")
+        st.error(f"Error while scraping: {e}")
         st.stop()
 
 if 'scraping_done' not in st.session_state:
@@ -45,11 +45,11 @@ if st.button("🔁 Execute scraping again"):
     run_all_scrapers()
 
 if not os.path.exists(RESULTS_FOLDER):
-    st.error(f"❌ La carpeta de resultados no existe: {RESULTS_FOLDER}")
+    st.error(f"La carpeta de resultados no existe: {RESULTS_FOLDER}")
 else:
     csv_files = [f for f in os.listdir(RESULTS_FOLDER) if f.endswith('.csv')]
     if not csv_files:
-        st.warning("⚠️ No hay archivos CSV disponibles para mostrar.")
+        st.warning("No hay archivos CSV disponibles para mostrar.")
     else:
         for csv_file in csv_files:
             file_path = os.path.join(RESULTS_FOLDER, csv_file)
