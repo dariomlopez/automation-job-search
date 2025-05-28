@@ -50,7 +50,7 @@ def get_job_titles(url):
             # convierte enlaces relativos en absolutos
             full_url = urljoin(url, href)
         
-            if 'python' in title or 'junior' in title:
+            if 'python' in title:
                 print(f"Link: {full_url} - Title: {title}")
                 jobs.append((title, full_url))
                 
