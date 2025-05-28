@@ -14,6 +14,15 @@ RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrap
 
 st.title("📊 Job Search Results")
 
+def make_links_clickable(df, col_names):
+    """Convierte columnas con URLs en links clicables en HTML."""
+    for col in col_names:
+        if col in df.columns:
+            df[col] = df[col].apply(
+                lambda x: f'<a href="{x}" target="_blank">{x}</a>' if pd.notna(x) and x != "" else ""
+            )
+    return df
+
 if not os.path.exists(RESULTS_FOLDER):
     st.error(f"La carpeta de resultados no existe: {RESULTS_FOLDER}")
 else:
@@ -31,16 +40,16 @@ else:
                     continue
 
                 with st.expander(f"📄 {csv_file}", expanded=True):
-                    st.dataframe(
-                        df,
-                        use_container_width=True,
-                        column_config={
-                            "url": st.column_config.LinkColumn("URL"),
-                            "link": st.column_config.LinkColumn("Link")
-                        }
+                    # Crear copia y convertir links a HTML clicable
+                    df_display = make_links_clickable(df.copy(), ['url', 'link'])
+
+                    # Mostrar tabla con links clicables
+                    st.markdown(
+                        df_display.to_html(escape=False, index=False),
+                        unsafe_allow_html=True
                     )
                     
-                    # Botón de descarga
+                    # Botón para descargar CSV
                     st.download_button(
                         "📥 Descargar CSV",
                         df.to_csv(index=False).encode('utf-8'),
