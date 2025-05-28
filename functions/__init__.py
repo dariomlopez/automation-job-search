@@ -35,8 +35,7 @@ def handle_captcha(webpage,driver=None,wait_time=10):
 # ---- Infojobs ----
 # --------------------
 
-def gradual_scroll(driver, steps=20, pause=1):
-    """Hace scroll poco a poco simulando el movimiento del usuario"""
+def gradual_scroll(driver, steps=20, pause=0.5):
     for i in range(steps):
         driver.execute_script(f"window.scrollBy(0, {i * 100});")
         time.sleep(pause)
