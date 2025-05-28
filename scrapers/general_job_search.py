@@ -19,7 +19,6 @@ def get_job_titles(url):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
-    filename = 'scraped_job_auto.csv'
     jobs = []
     response = requests.get(url, stream=True, headers=headers)
 
@@ -57,13 +56,21 @@ def get_job_titles(url):
                 
     if jobs:
         df = pd.DataFrame(jobs, columns=['title', 'url'])
-        file_path = results_folder(filename)
-        df.to_csv(file_path, index=False, encoding='utf-8-sig')
-        print(f"\nArchivo guardado en: {file_path}\n")
-    else:
-        print(f"No se encontraron resultados en {url}.")
+        return df
+    return pd.DataFrame(columns=['title', 'url'])  # Retorna DF vacío si no hay resultados
 
 def general_job_search():
+    all_jobs = []
     for url in links:
-        get_job_titles(url)
-        
+        df = get_job_titles(url)
+        if not df.empty:
+            all_jobs.append(df)
+    
+    if all_jobs:
+        final_df = pd.concat(all_jobs, ignore_index=True)
+        filename = 'general_jobs.csv'
+        file_path = results_folder(filename)
+        final_df.to_csv(file_path, index=False, encoding='utf-8-sig')
+        print(f"\nArchivo guardado en: {file_path}\n")
+        return final_df
+    return pd.DataFrame(columns=['title', 'url'])
