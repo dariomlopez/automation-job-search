@@ -1,4 +1,0 @@
-chromium-chromedriver
-chromium
-firefox-esr
-geckodriver
