@@ -1,0 +1,35 @@
+name: Ejecutar scrapers y hacer push
+
+on:
+  workflow_dispatch:     
+  schedule:
+    - cron: "0 9 * * *"
+
+jobs:
+  run-scrapers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Ejecutar el scraper
+        run: python run_scrapers.py
+
+      - name: Hacer commit de los cambios
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add scrapers/results/*.csv
+          git commit -m "🔄 Actualización automática de resultados de scraping" || echo "No hay cambios"
+          git push
