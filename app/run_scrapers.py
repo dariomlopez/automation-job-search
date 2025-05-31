@@ -18,7 +18,7 @@ def run_scrapers(nombre, scraper_function):
             print(f"No se encontraron resultados para {nombre}.")
             return
         
-        filename = f"{nombre}.csv"
+        filename = f"scraped_{scraper_function}.csv"
         file_path = os.path.join("scrapers", "results", filename)
         
         results.to_csv(file_path, index=False, encoding='utf-8-sig')
@@ -30,7 +30,7 @@ def main():
     # Asegurar que existe el directorio de resultados
     os.makedirs(os.path.join("scrapers", "results"), exist_ok=True)
     
-    run_scrapers("general", general_job_search)
+    run_scrapers("general_job_search", general_job_search)
     run_scrapers("infojobs", scrape_infojobs)
     run_scrapers("ticjob", scrape_ticjob)
     run_scrapers("indeed", scrape_indeed)
