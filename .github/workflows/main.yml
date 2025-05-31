@@ -1,5 +1,12 @@
 name: Ejecutar scrapers y hacer push
-
+env:
+  GH_PAT: ${{ secrets.GH_PAT }}
+run: |
+  git config --global user.name "github-actions[bot]"
+  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+  git add scrapers/results/*.csv
+  git commit -m "🔄 Actualización automática de resultados de scraping" || echo "No hay cambios"
+  git push https://x-access-token:${GH_PAT}@github.com/dariomlopez/automation-job-search.git
 on:
   workflow_dispatch:     
   schedule:

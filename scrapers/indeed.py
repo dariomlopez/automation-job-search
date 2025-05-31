@@ -6,16 +6,15 @@ from seleniumbase import Driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from bs4 import BeautifulSoup
 import pandas as pd
 import time
 
-from functions import handle_captcha, results_folder
+from functions import results_folder
 
 def scrape_indeed():
     base_url = 'https://es.indeed.com'
     website = f"{base_url}/jobs?q=python&l=&sort=date"
-    searchterm = 'python'
+    # searchterm = 'python'
     filename = 'scraped_indeed.csv'
     all_jobs = []
     
