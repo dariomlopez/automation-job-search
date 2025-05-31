@@ -6,7 +6,6 @@ Updated daily using GitHub Actions, with results stored in CSV format.
 ![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
 ![Selenium](https://img.shields.io/badge/Automation-Selenium-informational)
 [![Streamlit](https://img.shields.io/badge/Streamlit-powered-red?logo=streamlit&logoColor=white)](https://streamlit.io)
-![GitHub Actions](https://github.com/dariomlopez/automation-job-search/actions/workflows/scraper.yml/badge.svg)
 
 ---
 
