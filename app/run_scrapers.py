@@ -14,9 +14,6 @@ def run_scrapers(nombre, scraper_function):
     try:
         print(f"Ejecutando scraper {nombre}...")
         results = scraper_function()
-        if results is None or (hasattr(results, 'empty') and results.empty):
-            print(f"No se encontraron resultados para {nombre}.")
-            return
 
         print(f"Resultados de {nombre} guardados en la base de datos.")
     except Exception as e:

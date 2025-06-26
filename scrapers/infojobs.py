@@ -43,10 +43,10 @@ def scrape_infojobs():
             gradual_scroll(driver, steps=30, pause=0.5)
             time.sleep(2)
             WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//a[starts-with(@href, '//www.infojobs.net/madrid/')]"))
+                EC.presence_of_all_elements_located((By.XPATH, "//a[starts-with(@href, '//www.infojobs.net')]"))
             )
             
-            job_links = driver.find_elements(By.XPATH, "//a[starts-with(@href, '//www.infojobs.net/madrid/')]")
+            job_links = driver.find_elements(By.XPATH, "//a[starts-with(@href, '//www.infojobs.net')]")
             
             for link in job_links:
                 job_title = link.text.strip()

@@ -1,3 +1,4 @@
+
 # imports
 import os
 from seleniumbase import Driver
@@ -53,7 +54,9 @@ def results_folder(filename: str) -> str:
 
 def save_to_db(jobs, source):
     """Guarda los trabajos en una base de datos SQLite."""
-    conn = sqlite3.connect('scraped_jobs.db')
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    db_path = os.path.join(base_dir, 'scraped_jobs.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     # Crear la tabla si no existe
