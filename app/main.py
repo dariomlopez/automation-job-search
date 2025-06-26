@@ -36,7 +36,7 @@ else:
     # Filtrar archivos por fecha de modificación (solo los de hoy)
     csv_files = [
         f for f in csv_files
-        if datetime.date.fromtimestamp(os.path.getmtime(os.path.join(RESULTS_FOLDER, f))) == hoy
+        if datetime.date.fromtimestamp(os.path.getmtime(os.path.join(RESULTS_FOLDER, f))) == today
     ]
 
     if not csv_files:
