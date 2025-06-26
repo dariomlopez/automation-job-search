@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import pandas as pd
 
-from functions import results_folder
+from functions import results_folder, save_to_db
 
 links = [
     'https://weworkremotely.com/categories/remote-back-end-programming-jobs#job-listings',
@@ -34,12 +34,7 @@ def get_job_titles(url):
     elif 'tecnoempleo' in url:
         job_header_title = soup.find_all('h3', class_='fs-5 mb-2')
     
-    for job_title in job_header_title:
-        # job_title es la etiqueta HTML que  el título del trabajo
-            # print(job_title)
-        # job_title.text es el texto dentro de la etiqueta HTML
-            # print(job_title.text)
-            
+    for job_title in job_header_title:        
         # Se busca en el titulo del trabajo si contiene la palabra 'python' o 'junior'
         title = job_title.text.strip().lower()
         anchor_tag = job_title.find('a')
@@ -68,9 +63,12 @@ def general_job_search():
     
     if all_jobs:
         final_df = pd.concat(all_jobs, ignore_index=True)
-        filename = 'general_jobs.csv'
-        file_path = results_folder(filename)
-        final_df.to_csv(file_path, index=False, encoding='utf-8-sig')
-        print(f"\nArchivo guardado en: {file_path}\n")
+        # filename = 'general_jobs.csv'
+        # file_path = results_folder(filename)
+        # final_df.to_csv(file_path, index=False, encoding='utf-8-sig')
+        # print(f"\nArchivo guardado en: {file_path}\n")
+        save_to_db(final_df[['title', 'url']].values.tolist(), 'general_job_search')
+        print("Datos guardados en la base de datos (source: general).")
+        
         return final_df
     return pd.DataFrame(columns=['title', 'url'])
