@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import time
 
-from functions import results_folder
+from functions import results_folder, save_to_db
 
 def scrape_indeed():
     base_url = 'https://es.indeed.com'
@@ -46,9 +46,9 @@ def scrape_indeed():
             print("URL:", base_url + href if href.startswith("/") else href)
             print("-" * 40)
             all_jobs.append((title, href))
-    
-    df = pd.DataFrame(all_jobs, columns=['title', 'url'])
-    file_path = results_folder(filename)
-    df.to_csv(file_path, index=False, encoding='utf-8-sig')
+    save_to_db(all_jobs, 'indeed')
+    # df = pd.DataFrame(all_jobs, columns=['title', 'url'])
+    # file_path = results_folder(filename)
+    # df.to_csv(file_path, index=False, encoding='utf-8-sig')
     driver.quit()
 # scrape_indeed()

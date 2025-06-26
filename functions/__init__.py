@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 import time
-import traceback
+import sqlite3
 
 # RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
 
@@ -21,20 +21,6 @@ def handle_captcha(webpage,driver=None,wait_time=10):
     # driver.uc_gui_click_captcha()
     # time.sleep(5)
     # return driver
-
-# def click_cookies_button(url, button_id, driver=None):
-#     try:
-#         WebDriverWait(driver, 20).until(
-#             EC.element_to_be_clickable((By.ID, button_id))
-#         ).click()
-#         time.sleep(2)
-#     except:
-#         print("Botón de cookies no encontrado o ya aceptado.")
-#         traceback.print_exc()
-    
-# --------------------
-# ---- Infojobs ----
-# --------------------
 
 def gradual_scroll(driver, steps=20, pause=0.5):
     for i in range(steps):
@@ -64,3 +50,25 @@ def results_folder(filename: str) -> str:
     results_dir = os.path.join(base_dir, 'scrapers', 'results')
     os.makedirs(results_dir, exist_ok=True)
     return os.path.join(results_dir, filename)
+
+def save_to_db(jobs, source):
+    """Guarda los trabajos en una base de datos SQLite."""
+    conn = sqlite3.connect('jobs.db')
+    cursor = conn.cursor()
+    
+    # Crear la tabla si no existe
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS scraped_jobs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            url TEXT,
+            source TEXT,
+            date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    
+    # Insertar los trabajos
+    cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, source) for title, url in jobs])
+    
+    conn.commit()
+    conn.close()

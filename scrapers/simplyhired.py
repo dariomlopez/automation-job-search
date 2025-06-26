@@ -10,7 +10,7 @@ import pandas as pd
 import time
 import traceback
 
-from functions import handle_captcha, results_folder
+from functions import handle_captcha, results_folder, save_to_db
 
 base_url = 'https://www.simplyhired.es'
 
@@ -37,9 +37,10 @@ def scrape_simplyhired():
             print("-" * 40)
             all_jobs.append((title, url))
     
-    df = pd.DataFrame(all_jobs, columns=['title', 'url'])
+    # df = pd.DataFrame(all_jobs, columns=['title', 'url'])
     file_path = results_folder(filename)
-    df.to_csv(file_path, index=False, encoding='utf-8-sig')
+    # df.to_csv(file_path, index=False, encoding='utf-8-sig')
+    save_to_db(all_jobs, 'simplyhired')
     driver.quit()
     
 # scrape_simplyhired()
