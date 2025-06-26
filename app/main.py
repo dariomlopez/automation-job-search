@@ -28,6 +28,8 @@ def make_links_clickable(df, col_names):
 
 if not os.path.exists(RESULTS_FOLDER):
     st.error(f"La carpeta de resultados no existe: {RESULTS_FOLDER}")
+    os.makedirs(RESULTS_FOLDER)
+    st.info(f"Se ha creado la carpeta de resultados: {RESULTS_FOLDER}")
 else:
     csv_files = [f for f in os.listdir(RESULTS_FOLDER) if f.endswith('.csv')]
     
