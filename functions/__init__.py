@@ -53,7 +53,7 @@ def results_folder(filename: str) -> str:
 
 def save_to_db(jobs, source):
     """Guarda los trabajos en una base de datos SQLite."""
-    conn = sqlite3.connect('jobs.db')
+    conn = sqlite3.connect('scraped_jobs.db')
     cursor = conn.cursor()
     
     # Crear la tabla si no existe
