@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import traceback
 
+# RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
 
 def handle_captcha(webpage,driver=None,wait_time=10):
     """Initialize a Selenium driver, open a webpage, and handle captcha."""
@@ -58,11 +59,8 @@ def get_job_titles(soup):
 
 
 def results_folder(filename: str) -> str:
-    """Crea un directorio para los resultados si no existe"""
-    base_dir = os.path.expanduser(
-        r"C:\Users\junky\Desktop\Programacion\python\selenium_webscraping\autom_work_search\scrapers"
-    )
-    results_folder = os.path.join(base_dir, 'results')
-    if not os.path.exists(results_folder):
-        os.makedirs(results_folder)
-    return os.path.join(results_folder, filename)
+    """Crea el directorio de resultados relativo al proyecto si no existe y devuelve la ruta completa del archivo."""
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    results_dir = os.path.join(base_dir, 'scrapers', 'results')
+    os.makedirs(results_dir, exist_ok=True)
+    return os.path.join(results_dir, filename)

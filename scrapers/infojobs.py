@@ -10,13 +10,14 @@ import pandas as pd
 import time
 import traceback
 
-from functions import *
+from functions import gradual_scroll, results_folder
 
 
 def scrape_infojobs():
     webpage = 'https://www.infojobs.net/jobsearch/search-results/list.xhtml?keyword=python'
     filename = 'scraped_infojobs.csv'
     
+    driver = None
     try:
         driver = Driver(uc=True)
         driver.uc_open_with_reconnect(webpage, 4)
@@ -66,6 +67,7 @@ def scrape_infojobs():
         df.to_csv(file_path, index=False, encoding='utf-8-sig')
             
     except Exception as e:
+        print(f"Error en scrape_infojobs: {e}")
         traceback.print_exc()
 
     finally:
