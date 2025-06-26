@@ -18,7 +18,7 @@ def run_scrapers(nombre, scraper_function):
             print(f"No se encontraron resultados para {nombre}.")
             return
         
-        filename = f"scraped_{scraper_function}.csv"
+        filename = f"scraped_{nombre}.csv"
         file_path = os.path.join("scrapers", "results", filename)
         
         results.to_csv(file_path, index=False, encoding='utf-8-sig')

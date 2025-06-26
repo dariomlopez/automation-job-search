@@ -1,6 +1,9 @@
 import pandas as pd
 import os
 import streamlit as st
+import datetime
+
+today = datetime.date.today()
 
 # Configuración de la página
 st.set_page_config(
@@ -28,6 +31,12 @@ if not os.path.exists(RESULTS_FOLDER):
 else:
     csv_files = [f for f in os.listdir(RESULTS_FOLDER) if f.endswith('.csv')]
     
+    # Filtrar archivos por fecha de modificación (solo los de hoy)
+    csv_files = [
+        f for f in csv_files
+        if datetime.date.fromtimestamp(os.path.getmtime(os.path.join(RESULTS_FOLDER, f))) == hoy
+    ]
+
     if not csv_files:
         st.warning("No hay archivos CSV disponibles.")
     else:
