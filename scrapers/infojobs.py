@@ -12,11 +12,11 @@ import traceback
 
 from functions import gradual_scroll, results_folder, save_to_db
 
-prev_count = -1
 
 def scrape_infojobs():
     webpage = 'https://www.infojobs.net/jobsearch/search-results/list.xhtml?keyword=python'
     filename = 'scraped_infojobs.csv'
+    prev_count = -1
     
     driver = None
     try:
@@ -64,10 +64,10 @@ def scrape_infojobs():
                 break
             prev_count = len(all_jobs)
         
-        df = pd.DataFrame(all_jobs, columns=['title', 'url'])
-        file_path = results_folder(filename)
-        df.to_csv(file_path, index=False, encoding='utf-8-sig')
-        save_to_db(df, 'infojobs')
+        # df = pd.DataFrame(all_jobs, columns=['title', 'url'])
+        # file_path = results_folder(filename)
+        # df.to_csv(file_path, index=False, encoding='utf-8-sig')
+        save_to_db(all_jobs, 'infojobs')
         
     except Exception as e:
         print(f"Error en scrape_infojobs: {e}")
