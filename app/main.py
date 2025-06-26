@@ -4,6 +4,7 @@ import streamlit as st
 import datetime
 
 today = datetime.date.today()
+print(f"Fecha de hoy: {today}")
 
 # Configuración de la página
 st.set_page_config(

@@ -65,7 +65,7 @@ def scrape_infojobs():
         df = pd.DataFrame(all_jobs, columns=['title', 'url'])
         file_path = results_folder(filename)
         df.to_csv(file_path, index=False, encoding='utf-8-sig')
-            
+        
     except Exception as e:
         print(f"Error en scrape_infojobs: {e}")
         traceback.print_exc()
