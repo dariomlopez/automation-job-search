@@ -35,6 +35,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add scrapers/results/*.csv
+          git add scrapers/results/*.db
           git commit -m "🔄 Actualización automática de resultados de scraping" || echo "No hay cambios"
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}

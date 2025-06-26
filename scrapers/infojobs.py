@@ -39,28 +39,27 @@ def scrape_infojobs():
 
         all_jobs = []
 
-       
-        gradual_scroll(driver, steps=30, pause=0.5)
-        time.sleep(2)
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.XPATH, "//a[starts-with(@href, '//www.infojobs.net/madrid/')]"))
-        )
-        
-        job_links = driver.find_elements(By.XPATH, "//a[starts-with(@href, '//www.infojobs.net/madrid/')]")
-        
-        for link in job_links:
-            job_title = link.text.strip()
-            job_url = link.get_attribute("href")
+        while True:
+            gradual_scroll(driver, steps=30, pause=0.5)
+            time.sleep(2)
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_all_elements_located((By.XPATH, "//a[starts-with(@href, '//www.infojobs.net/madrid/')]"))
+            )
             
-            if 'python' in job_title.lower():
-                print("Job Title:", job_title)
-                print("URL:", job_url)
-                print("-" * 40)
-                all_jobs.append((job_title, job_url))
+            job_links = driver.find_elements(By.XPATH, "//a[starts-with(@href, '//www.infojobs.net/madrid/')]")
             
-        print(f"Página con {len(all_jobs)} trabajos")
-
-        
+            for link in job_links:
+                job_title = link.text.strip()
+                job_url = link.get_attribute("href")
+                
+                if 'python' in job_title.lower():
+                    print("Job Title:", job_title)
+                    print("URL:", job_url)
+                    print("-" * 40)
+                    all_jobs.append((job_title, job_url))
+                
+            print(f"Página con {len(all_jobs)} trabajos")
+            break
         # df = pd.DataFrame(all_jobs, columns=['title', 'url'])
         # file_path = results_folder(filename)
         # df.to_csv(file_path, index=False, encoding='utf-8-sig')
