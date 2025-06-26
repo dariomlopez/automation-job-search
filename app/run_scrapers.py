@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from scrapers import general_job_search, scrape_infojobs, scrape_ticjob, scrape_indeed
+from scrapers import general_job_search, scrape_infojobs, scrape_ticjob, scrape_indeed, scrape_simplyhired
 
 def run_scrapers(nombre, scraper_function):
     """
@@ -33,6 +33,7 @@ def main():
     run_scrapers("general_job_search", general_job_search)
     run_scrapers("infojobs", scrape_infojobs)
     run_scrapers("ticjob", scrape_ticjob)
+    run_scrapers("simplyhired", scrape_simplyhired)
     run_scrapers("indeed", scrape_indeed)
 
 if __name__ == "__main__":
