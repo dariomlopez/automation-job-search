@@ -68,7 +68,7 @@ def general_job_search():
         # final_df.to_csv(file_path, index=False, encoding='utf-8-sig')
         # print(f"\nArchivo guardado en: {file_path}\n")
         save_to_db(final_df[['title', 'url']].values.tolist(), 'general_job_search')
-        print("Datos guardados en la base de datos (source: general).")
+        print("Datos guardados en la base de datos (source: general job search).")
         
         return final_df
     return pd.DataFrame(columns=['title', 'url'])
