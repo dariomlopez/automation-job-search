@@ -6,9 +6,9 @@ from scrapers import general_job_search, scrape_infojobs, scrape_ticjob, scrape_
 
 def run_scrapers(nombre, scraper_function):
     """
-    Ejecuta un scraper y guarda los resultados en un archivo CSV.
+    Ejecuta un scraper y guarda los resultados en la base de datos.
     
-    :param nombre: Nombre del scraper (usado para el nombre del archivo).
+    :param nombre: Nombre del scraper.
     :param scraper_function: Función del scraper a ejecutar.
     """
     try:
@@ -17,12 +17,8 @@ def run_scrapers(nombre, scraper_function):
         if results is None or (hasattr(results, 'empty') and results.empty):
             print(f"No se encontraron resultados para {nombre}.")
             return
-        
-        filename = f"scraped_{nombre}.csv"
-        file_path = os.path.join("scrapers", "results", filename)
-        
-        results.to_csv(file_path, index=False, encoding='utf-8-sig')
-        print(f"Resultados guardados en {file_path}")
+
+        print(f"Resultados de {nombre} guardados en la base de datos.")
     except Exception as e:
         print(f"Error al ejecutar el scraper {nombre}: {str(e)}")
 
