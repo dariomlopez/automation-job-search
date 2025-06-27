@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>Trabajos</title></head>
+<body>
+  <h1>Lista de Trabajos</h1>
+  <ul>
+    {% set grouped_jobs = {} %}
+  {% for job in jobs %}
+    {% set source = job['source'] %}
+    {% if source not in grouped_jobs %}
+      {% set _ = grouped_jobs.update({source: []}) %}
+    {% endif %}
+    {% set _ = grouped_jobs[source].append(job) %}
+  {% endfor %}
+
+  {% for source, jobs in grouped_jobs.items() %}
+    <h2>{{ source }}</h2>
+    <ul>
+      {% for job in jobs %}
+        <li><a href="{{ job['url'] }}">{{ job['title'] }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+  </ul>
+</body>
+</html>

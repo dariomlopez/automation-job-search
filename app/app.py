@@ -15,7 +15,7 @@ print(f"Fecha de hoy: {today}")
 #RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_PATH = os.path.join(base_dir, 'scrapers', 'results', 'scraped_jobs.db')
+DB_PATH = os.path.join(BASE_DIR, 'scrapers', 'results', 'scraped_jobs.db')
 
 def get_db_connection():
     try:
@@ -32,5 +32,16 @@ def get_jobs_from_db():
     conn = get_db_connection()
 
     cursor = conn.execute(
-        'SELECT title, url FROM scraped_jobs'
+        'SELECT * FROM scraped_jobs'
     )
+
+    jobs = cursor.fetchall()
+    conn.close()
+
+    return jobs
+
+@app.route('/')
+def index():
+    jobs = get_jobs_from_db()
+    return render_template('jobs.html', jobs=jobs)
+    

@@ -4,14 +4,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-import pandas as pd
 
 from functions import results_folder, save_to_db
 
 links = [
-    'https://weworkremotely.com/categories/remote-back-end-programming-jobs#job-listings',
-    'https://www.infoempleo.com/trabajo/?search=python&ordenacion=fechaAlta',
-    'https://www.tecnoempleo.com/ofertas-trabajo/?te=python&pr='
+    ('https://weworkremotely.com/categories/remote-back-end-programming-jobs#job-listings', 'WeWorkRemotely'),
+    ('https://www.infoempleo.com/trabajo/?search=python&ordenacion=fechaAlta', 'InfoEmpleo'),
+    ('https://www.tecnoempleo.com/ofertas-trabajo/?te=python&pr=', 'TecnoEmpleo')
     ]
 
 
@@ -49,26 +48,24 @@ def get_job_titles(url):
                 print(f"Link: {full_url} - Title: {title}")
                 jobs.append((title, full_url))
                 
-    if jobs:
-        df = pd.DataFrame(jobs, columns=['title', 'url'])
-        return df
-    return pd.DataFrame(columns=['title', 'url'])  # Retorna DF vacío si no hay resultados
+    return jobs if jobs else []  # Retorna lista vacía si no hay resultados
 
 def general_job_search():
     all_jobs = []
-    for url in links:
-        df = get_job_titles(url)
-        if not df.empty:
-            all_jobs.append(df)
+    all_sources = []
+    for url, source in links:
+        jobs = get_job_titles(url)
+        if jobs:
+            all_jobs.extend(jobs)
+            all_sources.extend([source] * len(jobs))
     
     if all_jobs:
-        final_df = pd.concat(all_jobs, ignore_index=True)
         # filename = 'general_jobs.csv'
         # file_path = results_folder(filename)
         # final_df.to_csv(file_path, index=False, encoding='utf-8-sig')
         # print(f"\nArchivo guardado en: {file_path}\n")
-        save_to_db(final_df[['title', 'url']].values.tolist(), 'general_job_search')
-        print("Datos guardados en la base de datos (source: general job search).")
+        save_to_db(all_jobs, all_sources)
+        print("Datos guardados en la base de datos con sus respectivas fuentes.")
         
-        return final_df
-    return pd.DataFrame(columns=['title', 'url'])
+        return all_jobs
+    return []

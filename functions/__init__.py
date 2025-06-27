@@ -52,7 +52,7 @@ def results_folder(filename: str) -> str:
     os.makedirs(results_dir, exist_ok=True)
     return os.path.join(results_dir, filename)
 
-def save_to_db(jobs, source):
+def save_to_db(jobs, sources):
     """Guarda los trabajos en una base de datos SQLite."""
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     db_path = os.path.join(base_dir, 'scrapers', 'results', 'scraped_jobs.db')
@@ -71,7 +71,10 @@ def save_to_db(jobs, source):
     ''')
     
     # Insertar los trabajos
-    cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, source) for title, url in jobs])
+    if isinstance(sources, str):
+        cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, sources) for title, url in jobs])
+    else:
+        cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, source) for (title, url), source in zip(jobs, sources)])
     
     conn.commit()
     conn.close()
