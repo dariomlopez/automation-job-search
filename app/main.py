@@ -20,7 +20,9 @@ RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrap
 # st.title("📊 Job Search Results")
 
 def get_jobs_from_db(date=None):
-    conn = sqlite3.connect('scrapers/results/jobs.db')
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    db_path = os.path.join(base_dir, 'scrapers', 'results', 'scraped_jobs.db')
+    conn = sqlite3.connect(db_path)
     if date is None:
         date = datetime.date.today().isoformat()
     df = pd.read_sql_query(
@@ -30,6 +32,7 @@ def get_jobs_from_db(date=None):
     return df
 
 df = get_jobs_from_db()
+
 if df.empty:
     st.warning(f"No hay resultados en la base de datos para hoy.")
 else:

@@ -55,7 +55,7 @@ def results_folder(filename: str) -> str:
 def save_to_db(jobs, source):
     """Guarda los trabajos en una base de datos SQLite."""
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    db_path = os.path.join(base_dir, 'scraped_jobs.db')
+    db_path = os.path.join(base_dir, 'scrapers', 'results', 'scraped_jobs.db')
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
