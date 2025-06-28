@@ -14,7 +14,7 @@ from functions import gradual_scroll, save_to_db
 
 
 def scrape_infojobs():
-    os.environ["SB_CHROME_BINARY"] = "/usr/bin/chromium-browser"
+    os.environ["SB_CHROME_BINARY"] = "/usr/bin/chromium"
     webpage = 'https://www.infojobs.net/jobsearch/search-results/list.xhtml?keyword=python'
     filename = 'scraped_infojobs.csv'
     
