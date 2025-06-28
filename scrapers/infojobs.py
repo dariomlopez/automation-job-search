@@ -10,7 +10,7 @@ import pandas as pd
 import time
 import traceback
 
-from functions import gradual_scroll, results_folder, save_to_db
+from functions import gradual_scroll, save_to_db
 
 
 def scrape_infojobs():
