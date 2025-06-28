@@ -13,6 +13,7 @@ from functions import handle_captcha, save_to_db
 base_url = 'https://www.simplyhired.es'
 
 def scrape_simplyhired():
+    os.environ["SB_CHROME_BINARY"] = "/usr/bin/chromium-browser"
     website = 'https://www.simplyhired.es/search?q=python&l='
     # filename = 'scraped_simplyhired.csv'
     all_jobs = []

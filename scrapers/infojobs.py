@@ -6,7 +6,7 @@ from seleniumbase import Driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import pandas as pd
+
 import time
 import traceback
 
@@ -14,6 +14,7 @@ from functions import gradual_scroll, save_to_db
 
 
 def scrape_infojobs():
+    os.environ["SB_CHROME_BINARY"] = "/usr/bin/chromium-browser"
     webpage = 'https://www.infojobs.net/jobsearch/search-results/list.xhtml?keyword=python'
     filename = 'scraped_infojobs.csv'
     

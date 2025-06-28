@@ -12,9 +12,9 @@ import time
 from functions import save_to_db
 
 def scrape_ticjob():
+    os.environ["SB_CHROME_BINARY"] = "/usr/bin/chromium-browser"
     url = r'https://ticjob.es/esp/busqueda'
     searchterm = 'python'
-    filename = 'scraped_ticjob.csv'
     jobs = []
     
     driver = webdriver.Firefox()
