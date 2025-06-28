@@ -12,4 +12,4 @@ RUN pip install -r requirements.txt
 
 ENV CHROME_BIN=/usr/bin/chromium
 
-CMD ["gunicorn", "app:app"]
+CMD ["gunicorn", "app.app:app"]
