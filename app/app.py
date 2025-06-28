@@ -12,7 +12,8 @@ init_db()
 
 def get_db_connection():
     # Use a relative path from the app directory
-    DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scraped_jobs.db')
+    RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
+    DB_PATH = os.path.join(RESULTS_FOLDER, 'scraped_jobs.db')
     try:
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row

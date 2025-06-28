@@ -48,9 +48,8 @@ def get_job_titles(soup):
 
 def init_db():
     """Inicializa la base de datos SQLite con la estructura necesaria."""
-    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    DB_PATH = os.path.join(PROJECT_ROOT, 'scraped_jobs.db')
-    
+    RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
+    DB_PATH = os.path.join(RESULTS_FOLDER, 'scraped_jobs.db')
     if not os.path.exists(DB_PATH):
         os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)   
     
@@ -80,8 +79,8 @@ def init_db():
 
 def save_to_db(jobs, sources):
     """Guarda los trabajos en la base de datos SQLite."""
-    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    DB_PATH = os.path.join(PROJECT_ROOT, 'scraped_jobs.db')
+    RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
+    DB_PATH = os.path.join(RESULTS_FOLDER, 'scraped_jobs.db')
     
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
