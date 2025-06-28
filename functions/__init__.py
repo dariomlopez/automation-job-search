@@ -46,15 +46,13 @@ def get_job_titles(soup):
     return trabajos  # Retornamos todos los trabajos encontrados
 
 
-def save_to_db(jobs, sources):
-    """Crea y guarda los trabajos en una base de datos SQLite."""
+def init_db():
+    """Inicializa la base de datos SQLite con la estructura necesaria."""
     PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     DB_PATH = os.path.join(PROJECT_ROOT, 'scraped_jobs.db')
     
     if not os.path.exists(DB_PATH):
         os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)   
-    else:
-        print("Base de datos ya existe.")   
     
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -75,6 +73,18 @@ def save_to_db(jobs, sources):
         CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_job
         ON scraped_jobs(title, url, source)
     ''')
+    
+    conn.commit()
+    conn.close()
+
+
+def save_to_db(jobs, sources):
+    """Guarda los trabajos en la base de datos SQLite."""
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    DB_PATH = os.path.join(PROJECT_ROOT, 'scraped_jobs.db')
+    
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
     
     cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, sources) for title, url in jobs])
 

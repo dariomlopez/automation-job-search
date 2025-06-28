@@ -3,19 +3,20 @@ import os
 import datetime
 import sqlite3
 from flask import Flask, render_template, jsonify
+from functions import init_db
 
 app = Flask(__name__)
 
-# Ruta donde se encuentran los resultados
-#RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
+# Inicializar la base de datos al inicio de la aplicación
+init_db()
 
 def get_db_connection():
-    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    DB_PATH = os.path.join(PROJECT_ROOT, 'scraped_jobs.db')
+    # Use a relative path from the app directory
+    DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scraped_jobs.db')
     try:
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
-    
+        
         return conn
 
     except sqlite3.Error as e:
