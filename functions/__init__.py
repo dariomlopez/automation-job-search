@@ -45,13 +45,6 @@ def get_job_titles(soup):
     return trabajos  # Retornamos todos los trabajos encontrados
 
 
-def results_folder(filename: str) -> str:
-    """Crea el directorio de resultados relativo al proyecto si no existe y devuelve la ruta completa del archivo."""
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    results_dir = os.path.join(base_dir, 'scrapers', 'results')
-    os.makedirs(results_dir, exist_ok=True)
-    return os.path.join(results_dir, filename)
-
 def save_to_db(jobs, sources):
     """Guarda los trabajos en una base de datos SQLite."""
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

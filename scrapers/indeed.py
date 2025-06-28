@@ -6,10 +6,9 @@ from seleniumbase import Driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import pandas as pd
 import time
 
-from functions import results_folder, save_to_db
+from functions import save_to_db
 
 def scrape_indeed():
     base_url = 'https://es.indeed.com'

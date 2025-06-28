@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 
-from functions import results_folder, save_to_db
+from functions import save_to_db
 
 links = [
     ('https://weworkremotely.com/categories/remote-back-end-programming-jobs#job-listings', 'WeWorkRemotely'),
