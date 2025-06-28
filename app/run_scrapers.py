@@ -33,3 +33,7 @@ def run_all():
     run_scrapers("infojobs", scrape_infojobs)
     run_scrapers("ticjob", scrape_ticjob)
     run_scrapers("simplyhired", scrape_simplyhired)
+
+if __name__ == "__main__":
+    run_all()
+    print("Scraping terminado.")

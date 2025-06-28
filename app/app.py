@@ -6,14 +6,8 @@ import datetime
 import sqlite3
 from flask import Flask, render_template
 from functions import init_db
-from app.run_scrapers import run_all
 
 app = Flask(__name__)
-
-# Inicializar la base de datos al inicio de la aplicación
-init_db()
-run_all()
-
 
 def get_db_connection():
     # Use a relative path from the app directory
@@ -47,3 +41,6 @@ def index():
     jobs = get_jobs_from_db()
     return render_template('jobs.html', jobs=jobs)
     
+if __name__ == '__main__':
+    init_db()  # Initialize the database
+    app.run()
