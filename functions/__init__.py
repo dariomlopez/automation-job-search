@@ -10,7 +10,6 @@ import time
 import sqlite3
 
 # RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
-DB_PATH = os.path.join('/tmp', 'scraped_jobs.db')
 
 
 def handle_captcha(webpage,driver=None,wait_time=10):
@@ -49,6 +48,8 @@ def get_job_titles(soup):
 
 def save_to_db(jobs, sources):
     """Guarda los trabajos en una base de datos SQLite."""
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    DB_PATH = os.path.join(BASE_DIR, 'scraped_jobs.db')
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
