@@ -28,7 +28,7 @@ def get_jobs_from_db():
     conn = get_db_connection()
 
     cursor = conn.execute(
-        'SELECT * FROM scraped_jobs WHERE date = ?', (today,)
+        'SELECT * FROM scraped_jobs WHERE date LIKE ?', (today.strftime("%Y-%m-%d"),)
     )
 
     jobs = cursor.fetchall()
