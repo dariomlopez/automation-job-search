@@ -17,19 +17,28 @@ def scrape_indeed():
     filename = 'scraped_indeed.csv'
     all_jobs = []
     
-    driver = Driver(uc=True)
-    driver.uc_open_with_reconnect(website, 6)
+    options = {
+        "headless": True,
+        "uc": True,
+        "block_images": True,
+        "disable_gpu": True,
+        "no_sandbox": True,
+        "disable_dev_shm_usage": True
+    }
+    driver = Driver(**options)
+    driver.open(website)
     time.sleep(3)
 
     # Resolver captcha
     driver.uc_gui_click_captcha()
     time.sleep(2)
-    driver.uc_gui_click_captcha()
-    time.sleep(2)
+    # driver.uc_gui_click_captcha()
+    # time.sleep(2)
+    # driver.uc_gui_handle_captcha()
+    # time.sleep(2)
     driver.uc_gui_handle_captcha()
     time.sleep(2)
-    driver.uc_gui_handle_captcha()
-    time.sleep(2)
+    
     WebDriverWait(driver, 20).until(
         EC.presence_of_all_elements_located((By.XPATH, "//a[starts-with(@href, '/rc/clk') and @data-jk]"))
     )

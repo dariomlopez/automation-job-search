@@ -59,7 +59,7 @@ def save_to_db(jobs, sources):
             title TEXT,
             url TEXT,
             source TEXT,
-            date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            date CURRENT_DATE
         )
     ''')
     
