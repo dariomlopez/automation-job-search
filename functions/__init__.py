@@ -47,10 +47,15 @@ def get_job_titles(soup):
 
 
 def save_to_db(jobs, sources):
-    """Guarda los trabajos en una base de datos SQLite."""
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    DB_PATH = os.path.join(BASE_DIR, 'scraped_jobs.db')
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    """Crea y guarda los trabajos en una base de datos SQLite."""
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    DB_PATH = os.path.join(PROJECT_ROOT,'results', 'scraped_jobs.db')
+    
+    if not os.path.exists(DB_PATH):
+        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)   
+    else:
+        print("Base de datos ya existe.")   
+    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     

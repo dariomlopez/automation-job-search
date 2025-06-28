@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 def get_db_connection():
     try:
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        DB_PATH = os.path.join(BASE_DIR, 'scraped_jobs.db')
-        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+        PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        DB_PATH = os.path.join(PROJECT_ROOT, 'results', 'scraped_jobs.db')
+
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
     
