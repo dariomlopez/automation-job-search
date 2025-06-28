@@ -1,14 +1,40 @@
 
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import datetime
 import sqlite3
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
+from scrapers import general_job_search, scrape_infojobs, scrape_ticjob, scrape_simplyhired
 from functions import init_db
+
 
 app = Flask(__name__)
 
 # Inicializar la base de datos al inicio de la aplicación
 init_db()
+
+def run_scrapers(nombre, scraper_function):
+    """
+    Ejecuta un scraper y guarda los resultados en la base de datos.
+    
+    :param nombre: Nombre del scraper.
+    :param scraper_function: Función del scraper a ejecutar.
+    """
+    try:
+        print(f"Ejecutando scraper {nombre}...")
+        scraper_function()
+
+        print(f"Resultados de {nombre} guardados en la base de datos.")
+    except Exception as e:
+        print(f"Error al ejecutar el scraper {nombre}: {str(e)}")
+
+
+run_scrapers("general_job_search", general_job_search)
+run_scrapers("infojobs", scrape_infojobs)
+run_scrapers("ticjob", scrape_ticjob)
+run_scrapers("simplyhired", scrape_simplyhired)
+
 
 def get_db_connection():
     # Use a relative path from the app directory
