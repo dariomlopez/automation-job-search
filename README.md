@@ -5,7 +5,7 @@ It scrapes job listings from selected platforms and displays them via a Flask ap
 ![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
 ![Selenium](https://img.shields.io/badge/Automation-Selenium-informational)
 ![Flask](https://img.shields.io/badge/Flask-2.3-blue?logo=flask&logoColor=white)
-![SQLite Powered](https://img.shields.io/badge/SQLite-Powered-blue)
+![SQLite Powered](https://img.shields.io/badge/SQLite)
 
 ---
 
