@@ -20,9 +20,6 @@ def run_scrapers(nombre, scraper_function):
         print(f"Error al ejecutar el scraper {nombre}: {str(e)}")
 
 def main():
-    # Asegurar que existe el directorio de resultados
-    os.makedirs(os.path.join("scrapers", "results"), exist_ok=True)
-    
     run_scrapers("general_job_search", general_job_search)
     run_scrapers("infojobs", scrape_infojobs)
     run_scrapers("ticjob", scrape_ticjob)

@@ -10,10 +10,9 @@ app = Flask(__name__)
 #RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
 
 def get_db_connection():
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    DB_PATH = os.path.join(PROJECT_ROOT, 'scraped_jobs.db')
     try:
-        PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        DB_PATH = os.path.join(PROJECT_ROOT, 'results', 'scraped_jobs.db')
-
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
     

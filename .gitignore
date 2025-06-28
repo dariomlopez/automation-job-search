@@ -4,5 +4,5 @@ __pycache__
 .vscode
 .venv
 downloaded_files
-scrapers/results/*.db
+
 *.db
