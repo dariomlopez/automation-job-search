@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import time
 
-from functions import results_folder, save_to_db
+from functions import save_to_db
 
 def scrape_ticjob():
     url = r'https://ticjob.es/esp/busqueda'
@@ -52,9 +52,9 @@ def scrape_ticjob():
             print("-" * 40)
     if jobs:
         # df = pd.DataFrame(jobs, columns=['title', 'url'])
-        file_path = results_folder(filename)
+        # file_path = results_folder(filename)
         # df.to_csv(file_path, index=False, encoding='utf-8-sig')
-        print(f"{len(jobs)} jobs found. Results saved to {file_path}")
+        print(f"{len(jobs)} jobs found. Results saved to data base")
         save_to_db(jobs, 'ticjob')
     else:
         print("No titles containing 'python' or 'junior' found in Ticjob.")
