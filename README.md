@@ -30,3 +30,29 @@ Ideal to keep track of job opportunities without lifting a finger.
 - BeautifulSoup   
 
 
+## Cómo usar el código en local
+
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repo.git
+   cd tu-repo
+   ```
+
+2. **Crea un entorno virtual (opcional pero recomendado):**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # En Windows usa: venv\Scripts\activate
+   ```
+
+3. **Instala las dependencias:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Visualizar la web con Flask:**
+Abrir una terminal en en la carpeta donde se encuentra app.py
+Ejecutar:
+   ```bash
+   flask run
+   ```
+
