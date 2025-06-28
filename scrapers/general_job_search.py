@@ -8,9 +8,8 @@ from urllib.parse import urljoin
 from functions import save_to_db
 
 links = [
-    ('https://weworkremotely.com/categories/remote-back-end-programming-jobs#job-listings', 'WeWorkRemotely'),
-    ('https://www.infoempleo.com/trabajo/?search=python&ordenacion=fechaAlta', 'InfoEmpleo'),
-    ('https://www.tecnoempleo.com/ofertas-trabajo/?te=python&pr=', 'TecnoEmpleo')
+    'https://www.infoempleo.com/trabajo/?search=python&ordenacion=fechaAlta',
+    'https://www.tecnoempleo.com/ofertas-trabajo/?te=python&pr=',
     ]
 
 
@@ -26,9 +25,7 @@ def get_job_titles(url):
     page = response.content
     soup = BeautifulSoup(page, 'html.parser')
 
-    if 'weworkremotely' in url:
-        job_header_title = soup.find_all('h4',class_='new-listing__header__title')
-    elif 'infoempleo' in url:
+    if 'infoempleo' in url:
         job_header_title = soup.find_all('h2', class_='title mb15')
     elif 'tecnoempleo' in url:
         job_header_title = soup.find_all('h3', class_='fs-5 mb-2')
@@ -51,21 +48,12 @@ def get_job_titles(url):
     return jobs if jobs else []  # Retorna lista vacía si no hay resultados
 
 def general_job_search():
-    all_jobs = []
-    all_sources = []
-    for url, source in links:
+    for url in links:
+        source_name = 'infoempleo' if 'infoempleo' in url else 'tecnoempleo'
         jobs = get_job_titles(url)
         if jobs:
-            all_jobs.extend(jobs)
-            all_sources.extend([source] * len(jobs))
-    
-    if all_jobs:
-        # filename = 'general_jobs.csv'
-        # file_path = results_folder(filename)
-        # final_df.to_csv(file_path, index=False, encoding='utf-8-sig')
-        # print(f"\nArchivo guardado en: {file_path}\n")
-        save_to_db(all_jobs, all_sources)
-        print("Datos guardados en la base de datos con sus respectivas fuentes.")
-        
-        return all_jobs
-    return []
+            save_to_db(jobs, source_name)
+            print(f"Guardados {len(jobs)} trabajos de {source_name}")
+        else:
+            print(f"No se encontraron resultados para {source_name}")
+

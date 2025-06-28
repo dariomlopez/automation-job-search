@@ -6,11 +6,6 @@ from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
-today = datetime.date.today()
-print(f"Fecha de hoy: {today}")
-
-
-
 # Ruta donde se encuentran los resultados
 #RESULTS_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scrapers', 'results')
 
@@ -29,6 +24,7 @@ def get_db_connection():
         raise
 
 def get_jobs_from_db():
+    today = datetime.date.today()
     conn = get_db_connection()
 
     cursor = conn.execute(

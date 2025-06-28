@@ -59,15 +59,17 @@ def save_to_db(jobs, sources):
             title TEXT,
             url TEXT,
             source TEXT,
-            date CURRENT_DATE
+            date TEXT DEFAULT (DATE('now'))
         )
     ''')
+
+    # Crear un índice único para evitar duplicados
+    cursor.execute('''
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_job
+        ON scraped_jobs(title, url, source)
+    ''')
     
-    # Insertar los trabajos
-    if isinstance(sources, str):
-        cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, sources) for title, url in jobs])
-    else:
-        cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, source) for (title, url), source in zip(jobs, sources)])
-    
+    cursor.executemany('INSERT INTO scraped_jobs (title, url, source) VALUES (?, ?, ?)', [(title, url, sources) for title, url in jobs])
+
     conn.commit()
     conn.close()

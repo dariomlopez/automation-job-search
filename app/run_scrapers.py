@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from scrapers import general_job_search, scrape_infojobs, scrape_ticjob, scrape_indeed, scrape_simplyhired
+from scrapers import general_job_search, scrape_infojobs, scrape_ticjob, scrape_simplyhired
 
 def run_scrapers(nombre, scraper_function):
     """
@@ -13,7 +13,7 @@ def run_scrapers(nombre, scraper_function):
     """
     try:
         print(f"Ejecutando scraper {nombre}...")
-        results = scraper_function()
+        scraper_function()
 
         print(f"Resultados de {nombre} guardados en la base de datos.")
     except Exception as e:
@@ -27,7 +27,7 @@ def main():
     run_scrapers("infojobs", scrape_infojobs)
     run_scrapers("ticjob", scrape_ticjob)
     run_scrapers("simplyhired", scrape_simplyhired)
-    run_scrapers("indeed", scrape_indeed)
+    # run_scrapers("indeed", scrape_indeed)
 
 if __name__ == "__main__":
     main()
